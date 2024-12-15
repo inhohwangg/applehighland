@@ -1,0 +1,52 @@
+name: apple_highland
+description: "A new Flutter project."
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  get: ^4.6.6
+  dio: ^5.7.0
+  gap: ^3.0.1
+  flutter_svg: ^2.0.16
+  dots_indicator: ^3.0.0
+  carousel_slider: ^5.0.0
+  url_launcher: ^6.3.1
+  flutter_dotenv: ^5.2.1
+  get_storage: ^2.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/env/
+    - assets/images/
+    - assets/icons/
+    - assets/fonts/
+    - assets/logos/
+
+  fonts:
+    - family: PretendardGOV
+      fonts:
+        - asset: assets/fonts/PretendardGOV-Black.ttf
+        - asset: assets/fonts/PretendardGOV-Bold.ttf
+        - asset: assets/fonts/PretendardGOV-ExtraBold.ttf
+        - asset: assets/fonts/PretendardGOV-ExtraLight.ttf
+        - asset: assets/fonts/PretendardGOV-Light.ttf
+        - asset: assets/fonts/PretendardGOV-Medium.ttf
+        - asset: assets/fonts/PretendardGOV-Regular.ttf
+        - asset: assets/fonts/PretendardGOV-SemiBold.ttf
+        - asset: assets/fonts/PretendardGOV-Thin.ttf
