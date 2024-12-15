@@ -22,8 +22,10 @@ class AppleLoginPageController extends GetxController {
           'password': password.text,
         },
       );
-      inspect(res);
+      inspect(res.data);
       if (res.statusCode! >= 200 && res.statusCode! <= 399) {
+        printYellow('this');
+        getStorage.remove('token');
         getStorage.write('token', res.data['accessToken']);
       }
     } catch (e, s) {

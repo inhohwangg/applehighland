@@ -12,6 +12,8 @@ class AppleUserController extends GetxController {
 
   //* 유저 정보 요청
   userGet() async {
+    // 일반 사용자 id
+    // 6f29d61a-b322-4507-9006-7362d7506dd2
     try {
       printPurple(getStorage.read('token'));
       var res = await dio.get(

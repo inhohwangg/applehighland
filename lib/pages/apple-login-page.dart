@@ -61,8 +61,7 @@ class AloginPage extends GetView<AppleLoginPageController> {
                 GestureDetector(
                   onTap: () {
                     AppleUserController auth = Get.put(AppleUserController());
-                    // auth.menuUpdate();
-                    // auth.userAll();
+                    // auth.noticeDelete();
                   },
                   child: Text(
                     'Login',
