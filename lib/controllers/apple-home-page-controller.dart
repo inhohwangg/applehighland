@@ -32,6 +32,7 @@ class AhomePageController extends GetxController {
   RxString helpCenterTitle = ''.obs;
   RxBool secretValue = false.obs;
   RxList appleProductsList = [].obs;
+  RxList noticeList = [].obs;
   RxList eventList = [
     {'title': '[이벤트] 당첨자 명단 확인', 'date': '24.09.03'},
     {'title': '[이벤트] 당첨자 명단 확인', 'date': '24.09.03'},
@@ -268,6 +269,7 @@ class AhomePageController extends GetxController {
     totalItems.value = eventList.length;
     totalPages.value = (totalItems.value / itemsPerPage.value).ceil();
     categoryGet();
+    noticeGet();
   }
 
   // 페이지 변경 함수
@@ -322,6 +324,12 @@ class AhomePageController extends GetxController {
       printRed('과일소개 과일 가져오기 에러 메세지 : $e');
       printRed('과일소개 과일 가져오기 에러 코드 라인 : $s');
     }
+  }
+
+  noticeGet() async {
+    noticeList.clear();
+    var res = await dio.get('/notice/get');
+    noticeList.addAll(res.data['data']['rows']);
   }
 
   // 사용자 정보 가져오기
