@@ -83,10 +83,16 @@ class _AhomePageState extends State<AhomePage> with TickerProviderStateMixin {
                             children: [
                               Image.asset('assets/logo/apple_logo.png'),
                               Gap(10),
-                              Text(
-                                '애플 하이랜드',
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w600),
+                              GestureDetector(
+                                onTap: () {
+                                  controller.categoryGet();
+                                },
+                                child: Text(
+                                  '애플 하이랜드',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
                               Spacer(),
                               Row(

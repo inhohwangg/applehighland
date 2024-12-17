@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:apple_highland/controllers/apple-home-page-controller.dart';
+import 'package:intl/intl.dart';
 
 AhomePageController controller = Get.put(AhomePageController());
 
@@ -131,10 +133,11 @@ applePrice() {
             width: double.infinity,
             height: MediaQuery.of(Get.context!).size.height * 0.5,
             child: GridView.builder(
-              itemCount: 4,
+              itemCount: controller.appleProductsList.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2, crossAxisSpacing: 15, mainAxisSpacing: 15),
               itemBuilder: (context, index) {
+                Map item = controller.appleProductsList[index];
                 return Center(
                     child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,8 +147,8 @@ applePrice() {
                         borderRadius: BorderRadius.circular(5),
                         child: AspectRatio(
                           aspectRatio: 1.5 / 1,
-                          child: Image.asset(
-                            'assets/images/farm_info2.png',
+                          child: Image.network(
+                            '${dotenv.get('API')}/files/getFile?fileName=${item['productFiles']}',
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -163,11 +166,11 @@ applePrice() {
                       ),
                     Gap(10),
                     Text(
-                      '[애플하이랜드] 사과 종류 01',
+                      item['productName'],
                       style: TextStyle(fontSize: 12, color: Color(0xFF271300)),
                     ),
                     Text(
-                      '30,000원',
+                      '${NumberFormat('#,###').format(item['productPrice'])}원',
                       style: TextStyle(fontSize: 14, color: Color(0xFFFF5A5A)),
                     ),
                   ],
