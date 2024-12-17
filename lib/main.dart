@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       getPages: AppRoutes.routes,
-      initialRoute: '/login',
+      initialRoute: getStorage.read('token') != null ? '/home' : '/login',
       defaultTransition: Transition.cupertino,
     );
   }
