@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import 'pages/apple-login-page.dart';
+import 'router/routes.dart';
 
 final getStorage = GetStorage();
 
@@ -38,6 +39,9 @@ class MyApp extends StatelessWidget {
         splashColor: Colors.transparent,
         useMaterial3: true,
       ),
+      getPages: AppRoutes.routes,
+      initialRoute: '/login',
+      defaultTransition: Transition.cupertino,
     );
   }
 }
