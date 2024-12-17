@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:apple_highland/global/g_dio.dart';
+import 'package:apple_highland/global/g_print.dart';
 import 'package:get/get.dart';
 
 class AhomePageController extends GetxController {
@@ -27,6 +31,7 @@ class AhomePageController extends GetxController {
   RxInt helpCenterIndex = 0.obs;
   RxString helpCenterTitle = ''.obs;
   RxBool secretValue = false.obs;
+  RxList appleProductsList = [].obs;
   RxList eventList = [
     {'title': '[이벤트] 당첨자 명단 확인', 'date': '24.09.03'},
     {'title': '[이벤트] 당첨자 명단 확인', 'date': '24.09.03'},
@@ -262,6 +267,7 @@ class AhomePageController extends GetxController {
     tabIndex.value = 0;
     totalItems.value = eventList.length;
     totalPages.value = (totalItems.value / itemsPerPage.value).ceil();
+    categoryGet();
   }
 
   // 페이지 변경 함수
@@ -295,4 +301,29 @@ class AhomePageController extends GetxController {
       currentPage.value = 1; // 첫 번째 페이지로 이동
     }
   }
+
+  // 카테고리 가져오기
+  categoryGet() async {
+    try {
+      appleProductsList.clear();
+      var res = await dio.get('/categories/get', queryParameters: {
+        'from': 0,
+        'size': 30,
+      });
+      // inspect(res.data);
+      var resProduct = await dio.get('/products/get', data: {
+        'from': 0,
+        'size': 30,
+        'categoryId': res.data['data']['rows'].first['id']
+      });
+      appleProductsList.addAll(resProduct.data['data']['rows']);
+      inspect(appleProductsList);
+    } catch (e, s) {
+      printRed('과일소개 과일 가져오기 에러 메세지 : $e');
+      printRed('과일소개 과일 가져오기 에러 코드 라인 : $s');
+    }
+  }
+
+  // 사용자 정보 가져오기
+  // 카테고리 삭제(임시)
 }
