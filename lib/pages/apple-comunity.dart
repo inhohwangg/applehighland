@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:apple_highland/controllers/apple-home-page-controller.dart';
 import 'package:apple_highland/pages/apple-deliver.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 AhomePageController controller = Get.put(AhomePageController());
 
@@ -69,7 +72,7 @@ comunity() {
                     ),
                   ),
                   if (controller.selectedCategoryIndex.value == 0)
-                    notices(controller.eventTestList),
+                    notices(controller.noticeList),
                   if (controller.selectedCategoryIndex.value == 1) helpCenter(),
                   if (controller.selectedCategoryIndex.value == 2)
                     productComment(),
@@ -209,12 +212,12 @@ notices(item) {
                     children: [
                       Expanded(
                         flex: 8,
-                        child: Text(item['title']),
+                        child: Text(item['noticeTitle']),
                       ),
                       Expanded(
-                        flex: 2,
-                        child: Text(item['date']),
-                      ),
+                          flex: 2,
+                          child: Text(DateFormat('MM월 dd일')
+                              .format(DateTime.parse(item['createdAt'])))),
                     ],
                   ),
                 ),

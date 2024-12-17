@@ -58,15 +58,9 @@ class AloginPage extends GetView<AppleLoginPageController> {
                 //     height: 75,
                 //   ),
                 // ),
-                GestureDetector(
-                  onTap: () {
-                    AppleUserController auth = Get.put(AppleUserController());
-                    // auth.noticeDelete();
-                  },
-                  child: Text(
-                    'Login',
-                    style: TextStyle(fontSize: 25, color: Color(0xFF856655)),
-                  ),
+                Text(
+                  'Login',
+                  style: TextStyle(fontSize: 25, color: Color(0xFF856655)),
                 ),
                 Gap(40),
                 Container(
