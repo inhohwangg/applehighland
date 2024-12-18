@@ -312,14 +312,14 @@ class AhomePageController extends GetxController {
         'from': 0,
         'size': 30,
       });
-      // inspect(res.data);
       var resProduct = await dio.get('/products/get', data: {
         'from': 0,
         'size': 30,
         'categoryId': res.data['data']['rows'].first['id']
       });
+      inspect(resProduct);
       appleProductsList.addAll(resProduct.data['data']['rows']);
-      inspect(appleProductsList);
+      // inspect(appleProductsList);
     } catch (e, s) {
       printRed('과일소개 과일 가져오기 에러 메세지 : $e');
       printRed('과일소개 과일 가져오기 에러 코드 라인 : $s');
@@ -330,6 +330,7 @@ class AhomePageController extends GetxController {
     noticeList.clear();
     var res = await dio.get('/notice/get');
     noticeList.addAll(res.data['data']['rows']);
+    inspect(res.data);
   }
 
   // 사용자 정보 가져오기

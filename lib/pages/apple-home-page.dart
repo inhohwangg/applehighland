@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:apple_highland/controllers/apple-home-page-controller.dart';
+import 'apple-instruction.dart';
 import 'apple-mypage.dart';
 
 class AhomePage extends StatefulWidget {
@@ -166,7 +167,7 @@ class _AhomePageState extends State<AhomePage> with TickerProviderStateMixin {
                         else if (controller.tabIndex.value == 1)
                           applePrice()
                         else if (controller.tabIndex.value == 2)
-                          applePrice()
+                          appleInstruction()
                         else if (controller.tabIndex.value == 3)
                           appleDirections()
                         else if (controller.tabIndex.value == 6)

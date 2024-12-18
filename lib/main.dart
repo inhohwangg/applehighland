@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -11,10 +12,11 @@ import 'router/routes.dart';
 final getStorage = GetStorage();
 
 void main() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = NoCheckCertificateHttpOverrides();
   await GetStorage.init();
   await dotenv.load(fileName: 'assets/env/.env');
+  await NaverMapSdk.instance.initialize(clientId: dotenv.get('NCP_CLIENT_ID'));
   runApp(MyApp());
 }
 
