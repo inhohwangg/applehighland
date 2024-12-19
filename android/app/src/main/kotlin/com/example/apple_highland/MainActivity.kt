@@ -1,4 +1,4 @@
-package com.example.apple_highland
+package com.mobile.apple_highland
 
 import io.flutter.embedding.android.FlutterActivity
 
