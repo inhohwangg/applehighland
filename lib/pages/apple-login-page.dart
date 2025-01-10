@@ -86,20 +86,30 @@ class AloginPage extends GetView<AppleLoginPageController> {
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   width: double.infinity,
                   height: 50,
-                  child: TextField(
-                    controller: controller.password,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5),
+                  child: Obx(
+                    () => TextField(
+                      controller: controller.password,
+                      obscureText: controller.isVisibility.value,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        prefixIcon: Icon(Icons.lock_outline),
+                        hintText: '비밀번호',
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 15),
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            !controller.isVisibility.value
+                                ? controller.isVisibility.value = true
+                                : controller.isVisibility.value = false;
+                          },
+                          child: Icon(
+                            controller.isVisibility.value ? Icons.visibility : Icons.visibility_off_outlined,
+                          ),
+                        ),
+                        // prefixText: '아이디'
                       ),
-                      prefixIcon: Icon(Icons.lock_outline),
-                      hintText: '비밀번호',
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 15), // 여기에 패딩 설정
-                      suffixIcon: Icon(
-                        Icons.visibility_off_outlined,
-                      ),
-                      // prefixText: '아이디'
                     ),
                   ),
                 ),
@@ -231,22 +241,17 @@ class AloginPage extends GetView<AppleLoginPageController> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            Get.to(AhomePage());
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Color(0xFFF8F8F8),
-                            ),
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            child: Center(
-                              child: Text(
-                                '구글',
-                                style: TextStyle(
-                                    color: Color(0xFF141414), fontSize: 14),
-                              ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Color(0xFFF8F8F8),
+                          ),
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: Center(
+                            child: Text(
+                              '구글',
+                              style: TextStyle(
+                                  color: Color(0xFF141414), fontSize: 14),
                             ),
                           ),
                         ),
