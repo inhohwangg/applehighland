@@ -1,3 +1,4 @@
+import 'package:apple_highland/main.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -46,11 +47,108 @@ mypage() {
               Gap(20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text('애플 하이'),
-                  Gap(5),
-                  Text('aaaaa@naver.com'),
+                children: [
+                  Text(getStorage.read('email') ?? ''),
                 ],
+              ),
+              Spacer(),
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: Get.context!,
+                    builder: (context) {
+                      return AlertDialog(
+                        surfaceTintColor: Colors.white,
+                        shape: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none),
+                        content: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(
+                                child: Text(
+                              '로그아웃',
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            )),
+                            Gap(10),
+                            Divider(
+                              color: Colors.grey[200],
+                            ),
+                            Gap(10),
+                            SizedBox(
+                              child: Text(
+                                '로그아웃 하시겠습니까?',
+                                style: TextStyle(
+                                    color: Color(0xFF343434), fontSize: 14),
+                              ),
+                            ),
+                            Gap(20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.back();
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.grey[200],
+                                    ),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 35, vertical: 10),
+                                    child: Center(
+                                      child: Text(
+                                        '닫기',
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 14),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Gap(15),
+                                GestureDetector(
+                                  onTap: () {
+                                    controller.logOut();
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.blue[200],
+                                    ),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 35, vertical: 10),
+                                    child: Center(
+                                      child: Text(
+                                        '확인',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 14),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                    color: Colors.red[200],
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Text(
+                    '로그아웃',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
               )
             ],
           ),

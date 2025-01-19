@@ -143,13 +143,156 @@ applePrice() {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (controller.tabIndex.value == 1)
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
-                        child: AspectRatio(
-                          aspectRatio: 1.5 / 1,
-                          child: Image.network(
-                            '${dotenv.get('API')}/files/getFile?fileName=${item['productFiles']}',
-                            fit: BoxFit.cover,
+                      GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: Get.context!,
+                            builder: (context) {
+                              return Dialog(
+                                backgroundColor: Colors.transparent,
+                                child: Container(
+                                  width: 300,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Stack(
+                                        children: [
+                                          // 이미지를 상단 전체에 채우기
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.vertical(
+                                                top: Radius.circular(5)),
+                                            child: SizedBox(
+                                              height: 200,
+                                              width: double.infinity,
+                                              child: Image.network(
+                                                '${dotenv.get('API')}/files/getFile?fileName=${item['productFiles']}',
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          // 닫기 버튼
+                                          Positioned(
+                                            right: 10,
+                                            top: 10,
+                                            child: IconButton(
+                                              icon: Icon(Icons.close,
+                                                  color: Colors.white),
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      // 컨텐츠 영역...
+                                      Gap(10),
+                                      Text(
+                                        item['productName'],
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Gap(10),
+                                      Divider(
+                                        color: Colors.grey[200],
+                                      ),
+                                      Gap(10),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child: Row(
+                                          children: [
+                                            Text('판매가'),
+                                            Gap(40),
+                                            Text(
+                                              '${NumberFormat('#,###').format(item['productPrice'])}원',
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Color(0xFFFF5A5A)),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Gap(10),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child: Row(
+                                          children: const [
+                                            Text('배송비'),
+                                            Gap(40),
+                                            Text('무료'),
+                                          ],
+                                        ),
+                                      ),
+                                      Gap(10),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child: Row(
+                                          children: const [
+                                            Text('수량량'),
+                                            Gap(40),
+                                            Text('무료'),
+                                          ],
+                                        ),
+                                      ),
+                                      Gap(10),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 20, vertical: 20),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10, vertical: 10),
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      width: 1,
+                                                      color: Color(0xFF856655)),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5)),
+                                              child: Text(
+                                                '장바구니',
+                                                style: TextStyle(
+                                                    color: Color(0xFF856655)),
+                                              ),
+                                            ),
+                                            Gap(20),
+                                            Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10, vertical: 10),
+                                              decoration: BoxDecoration(
+                                                  color: Color(0xFF856655),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5)),
+                                              child: Text(
+                                                '바로 구매',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: AspectRatio(
+                            aspectRatio: 1.5 / 1,
+                            child: Image.network(
+                              '${dotenv.get('API')}/files/getFile?fileName=${item['productFiles']}',
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       )

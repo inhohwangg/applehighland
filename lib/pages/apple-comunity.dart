@@ -199,26 +199,96 @@ notices(item) {
               var item = getPageItems()[index];
               return Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(width: 1, color: Color(0xFFD9D9D9))),
-                  ),
-                  width: double.infinity,
-                  height: 50,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        flex: 8,
-                        child: Text(item['noticeTitle']),
-                      ),
-                      Expanded(
-                          flex: 2,
-                          child: Text(DateFormat('MM월 dd일')
-                              .format(DateTime.parse(item['createdAt'])))),
-                    ],
+                child: GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: Get.context!,
+                      builder: (context) {
+                        return AlertDialog(
+                          surfaceTintColor: Colors.white,
+                          shape: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide.none),
+                          content: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                child: Text(
+                                  item['noticeTitle'],
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Gap(10),
+                              Divider(
+                                color: Colors.grey[200],
+                              ),
+                              Gap(10),
+                              SizedBox(
+                                child: Text(
+                                  item['noticeDesc'],
+                                  style: TextStyle(
+                                      color: Color(0xFF343434), fontSize: 14),
+                                ),
+                              ),
+                              Gap(20),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.back();
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        color: Colors.grey[200],
+                                      ),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 35, vertical: 10),
+                                      child: Center(
+                                        child: Text(
+                                          '닫기',
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 14),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    decoration: BoxDecoration(
+                      border: Border(
+                          bottom:
+                              BorderSide(width: 1, color: Color(0xFFD9D9D9))),
+                    ),
+                    width: double.infinity,
+                    height: 50,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          flex: 8,
+                          child: Text(item['noticeTitle']),
+                        ),
+                        Expanded(
+                            flex: 2,
+                            child: Text(DateFormat('MM월 dd일')
+                                .format(DateTime.parse(item['createdAt'])))),
+                      ],
+                    ),
                   ),
                 ),
               );

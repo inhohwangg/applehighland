@@ -66,12 +66,12 @@ class AppleLoginPageController extends GetxController {
     if (numbers.length >= 3) {
       formatted += numbers.substring(0, 3);
       if (numbers.length >= 7) {
-        formatted += '-' + numbers.substring(3, 7);
+        formatted += '-${numbers.substring(3, 7)}';
         if (numbers.length >= 8) {
-          formatted += '-' + numbers.substring(7);
+          formatted += '-${numbers.substring(7)}';
         }
       } else if (numbers.length > 3) {
-        formatted += '-' + numbers.substring(3);
+        formatted += '-${numbers.substring(3)}';
       }
     } else {
       formatted = numbers;
@@ -153,9 +153,8 @@ class AppleLoginPageController extends GetxController {
         },
       );
       if (res.statusCode! >= 200 && res.statusCode! <= 399) {
-        inspect(res.data);
-        printYellow('this');
         getStorage.remove('token');
+        getStorage.write('email', email.text);
         getStorage.write('token', res.data['accessToken']);
         Get.toNamed('/home');
       } else {
