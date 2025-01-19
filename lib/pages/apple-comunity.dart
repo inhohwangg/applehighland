@@ -360,74 +360,35 @@ helpCenter() {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // 첫 번째 Chip
-            Expanded(
-              child: Material(
-                color: Colors.transparent,
-                child: Ink(
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(5),
-                    onTap: () {
-                      controller.helpCenterIndex.value = 1;
-                      controller.helpCenterTitle.value = '배송문의';
-                    },
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Color(0xFFF9F9F9),
-                      ),
-                      child: Chip(
-                        avatar: Icon(Icons.local_shipping_outlined,
-                            color: Color(0xFF646464)),
-                        label: Text(
-                          '배송문의',
-                          style:
-                              TextStyle(color: Color(0xFF343434), fontSize: 12),
-                        ),
-                        backgroundColor: Color(0xFFF9F9F9),
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(5), // borderRadius 설정
-                            side: BorderSide.none),
-                        side: BorderSide.none,
-                      ),
+            Material(
+              color: Colors.transparent,
+              child: Ink(
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(5),
+                  onTap: () {
+                    controller.helpCenterIndex.value = 1;
+                    controller.helpCenterTitle.value = '자주 묻는 질문';
+                  },
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Color(0xFFF9F9F9),
                     ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(width: 20), // 두 Chip 사이 공간
-            // 두 번째 Chip
-            Expanded(
-              child: Material(
-                color: Colors.transparent,
-                child: Ink(
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(5),
-                    onTap: () {
-                      controller.helpCenterIndex.value = 1;
-                      controller.helpCenterTitle.value = '상품문의';
-                    },
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Color(0xFFF9F9F9),
+                    child: Chip(
+                      avatar: Icon(Icons.contact_support_outlined,
+                          color: Color(0xFF646464)),
+                      label: Text(
+                        '자주 묻는 질문',
+                        style:
+                            TextStyle(color: Color(0xFF343434), fontSize: 12),
                       ),
-                      child: Chip(
-                        avatar: SvgPicture.asset('assets/logo/nutrition.svg'),
-                        label: Text(
-                          '상품문의',
-                          style:
-                              TextStyle(color: Color(0xFF343434), fontSize: 12),
-                        ),
-                        backgroundColor: Color(0xFFF9F9F9),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        side: BorderSide.none,
-                      ),
+                      backgroundColor: Color(0xFFF9F9F9),
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(5), // borderRadius 설정
+                          side: BorderSide.none),
+                      side: BorderSide.none,
                     ),
                   ),
                 ),
@@ -435,269 +396,252 @@ helpCenter() {
             ),
           ],
         ),
-        SizedBox(height: 10), // Row 간 간격
-        // 두 번째 Row
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // 첫 번째 Chip
-            Expanded(
-              child: Material(
-                color: Colors.transparent,
-                child: Ink(
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(5),
-                    onTap: () {
-                      controller.helpCenterIndex.value = 1;
-                      controller.helpCenterTitle.value = '자주 묻는 질문';
-                    },
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Color(0xFFF9F9F9),
-                      ),
-                      child: Chip(
-                        avatar: Icon(Icons.contact_support_outlined,
-                            color: Color(0xFF646464)),
-                        label: Text(
-                          '자주 묻는 질문',
-                          style:
-                              TextStyle(color: Color(0xFF343434), fontSize: 12),
-                        ),
-                        backgroundColor: Color(0xFFF9F9F9),
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(5), // borderRadius 설정
-                            side: BorderSide.none),
-                        side: BorderSide.none,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(width: 20), // 두 Chip 사이 공간
-            // 두 번째 Chip
-            Expanded(
-              child: Material(
-                color: Colors.transparent,
-                child: Ink(
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(5),
-                    onTap: () {
-                      controller.helpCenterIndex.value = 1;
-                      controller.helpCenterTitle.value = '반품 / 교환 문의';
-                    },
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Color(0xFFF9F9F9),
-                      ),
-                      child: Chip(
-                        avatar: Icon(Icons.autorenew_outlined,
-                            color: Color(0xFF646464)),
-                        label: Text(
-                          '반품 / 교환 문의',
-                          style:
-                              TextStyle(color: Color(0xFF343434), fontSize: 12),
-                        ),
-                        backgroundColor: Color(0xFFF9F9F9),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        side: BorderSide.none,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 10),
-        // 세 번째 Row
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // 첫 번째 Chip
-            Expanded(
-              child: Material(
-                color: Colors.transparent,
-                child: Ink(
-                  child: InkWell(
-                    onTap: () {
-                      controller.helpCenterIndex.value = 1;
-                      controller.helpCenterTitle.value = '기타 문의';
-                    },
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Color(0xFFF9F9F9),
-                      ),
-                      child: Chip(
-                        avatar:
-                            Icon(Icons.sell_outlined, color: Color(0xFF646464)),
-                        label: Text(
-                          '기타 문의',
-                          style:
-                              TextStyle(color: Color(0xFF343434), fontSize: 12),
-                        ),
-                        backgroundColor: Color(0xFFF9F9F9),
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(5), // borderRadius 설정
-                            side: BorderSide.none),
-                        side: BorderSide.none,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(width: 20), // 두 Chip 사이 공간
-            // 두 번째 Chip
-            Expanded(
-              child: Container(
-                alignment: Alignment.centerLeft,
+        Gap(20),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 decoration: BoxDecoration(
-                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    color: Color(0xFFF5F5F5)),
+                child: Row(
+                  children: const [
+                    Icon(
+                      Icons.search,
+                      size: 16,
+                      color: Color(0xFF646464),
+                    ),
+                    Gap(10),
+                    Text(
+                      '검색하세요',
+                      style: TextStyle(fontSize: 12, color: Color(0xFF646464)),
+                    ),
+                    Gap(30),
+                  ],
+                ),
+              ),
+              Spacer(),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    border: Border.all(width: 1, color: Color(0xFFD9D9D9)),
                     borderRadius: BorderRadius.circular(5)),
-                child: Chip(
-                  avatar: Icon(
-                    Icons.autorenew_outlined,
+                child: DropdownButton(
+                  items: controller.dropDownMenuList
+                      .map((item) => DropdownMenuItem(
+                            value: item,
+                            child: Text(
+                              item,
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  color: Color(0xFF343434),
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ))
+                      .toList(),
+                  onChanged: (value) {
+                    controller.dropDownValue.value = value.toString();
+                  },
+                  icon: Padding(
+                    padding: EdgeInsets.only(left: 10), // 아이콘과 텍스트 사이 간격 조정
+                    child: Icon(Icons.keyboard_arrow_down),
+                  ),
+                  value: controller.dropDownValue.value,
+                  underline: Container(
                     color: Colors.transparent,
                   ),
-                  label: Text(
-                    '반품 / 교환 문의',
-                    style: TextStyle(color: Colors.transparent, fontSize: 12),
-                  ),
-                  backgroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  side: BorderSide.none,
+                  isDense: true,
+                  padding: EdgeInsets.symmetric(vertical: 5),
                 ),
               ),
-            ),
-          ],
-        ),
-        Gap(30),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: BoxDecoration(
-            border: Border(
-                bottom: BorderSide(
-              color: Color(0xFFAA9E9E).withOpacity(0.7),
-              width: 1.5,
-            )),
+            ],
           ),
-          child: Padding(
+        ),
+        Gap(10),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          child: Container(
             padding: EdgeInsets.symmetric(vertical: 10),
-            child: Text(
-              'BEST 자주 묻는 질문',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+            // width: double.infinity,
+            // height: 50,
+            decoration: BoxDecoration(
+              color: Color(0xFFF5F5F5),
+              border: Border.symmetric(
+                  horizontal: BorderSide(width: 1, color: Color(0xFFD9D9D9))),
+              // border: Border(
+              //     top: BorderSide(width: 1, color: Color(0xFFF5F5F5),),
+              //     bottom: BorderSide(width: 1, color: Color(0xFFF5F5F5))),
+            ),
+            child: Row(
+              children: const [
+                Expanded(
+                  flex: 8,
+                  child: Center(
+                      child: Text(
+                    '제목',
+                    style: TextStyle(fontSize: 12, color: Color(0xFF343434)),
+                  )),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Center(
+                      child: Text('등록일',
+                          style: TextStyle(
+                              fontSize: 12, color: Color(0xFF343434)))),
+                ),
+              ],
             ),
           ),
         ),
         SizedBox(
           width: double.infinity,
-          height: MediaQuery.of(Get.context!).size.height * 0.4,
+          height: MediaQuery.of(Get.context!).size.height * 0.5,
           child: ListView.builder(
-            itemCount: controller.faqs.length,
+            itemCount: controller.productInquiryList.length,
             itemBuilder: (context, index) {
-              var faqItem = controller.faqs[index];
-              return GestureDetector(
-                onTap: () {
-                  faqItem['isExpanded'].value = !faqItem['isExpanded'].value;
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                              width: 1,
-                              color: Color(0xFFD9D9D9).withOpacity(0.5)))),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            'Q',
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: Color(0xFF343434),
-                                fontWeight: FontWeight.w500),
-                          ),
-                          Gap(10),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.785,
-                            child: Text(
-                              '${controller.faqs[index]['faqTitle']} ${controller.faqs[index]['title']}',
-                              maxLines: 10,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Color(0xFF343434),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      Obx(
-                        () => AnimatedCrossFade(
-                          firstChild: Container(),
-                          secondChild: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            child: Column(
-                              children: [
-                                Text(
-                                  faqItem['content'],
-                                  style: TextStyle(
-                                      fontSize: 12, color: Color(0xFF343434)),
+              var item = controller.productInquiryList[index];
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: Get.context!,
+                      builder: (context) {
+                        return AlertDialog(
+                          surfaceTintColor: Colors.white,
+                          shape: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide.none),
+                          content: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                child: Center(
+                                  child: Text(
+                                    '상품 문의',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                                Gap(20),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 30, vertical: 10),
+                              ),
+                              Gap(20),
+                              Text(
+                                '문의 내용',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w600),
+                              ),
+                              Divider(
+                                color: Colors.grey[200],
+                              ),
+                              Gap(20),
+                              Text(
+                                'Q. ${item['inquiryTitle']}',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 14),
+                              ),
+                              Gap(20),
+                              Text(
+                                item['inquiryDesc'],
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400, fontSize: 13),
+                              ),
+                              Gap(10),
+                              Text(
+                                item['createdAt'].split('T').first,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.grey[500],
+                                    fontSize: 12),
+                              ),
+                              Gap(30),
+                              Text(
+                                '답변',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w600),
+                              ),
+                              Divider(
+                                color: Colors.grey[200],
+                              ),
+                              Gap(20),
+                              Text(
+                                item['inquiryAnswer'],
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400, fontSize: 13),
+                              ),
+                              Gap(10),
+                              Text(
+                                item['answerAt'].split('T').first,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.grey[500],
+                                    fontSize: 12),
+                              ),
+                              Gap(20),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.back();
+                                    },
+                                    child: Container(
                                       decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          color: Color(0xFFF7F7F7)),
-                                      child: Text(
-                                        '접기',
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            color: Color(0xFF271300)),
+                                        borderRadius: BorderRadius.circular(5),
+                                        color: Colors.grey[200],
                                       ),
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 35, vertical: 10),
+                                      child: Center(
+                                        child: Text(
+                                          '닫기',
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 14),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
                           ),
-                          crossFadeState: faqItem['isExpanded'].value
-                              ? CrossFadeState.showSecond
-                              : CrossFadeState.showFirst,
-                          duration: Duration(
-                            milliseconds: 300,
-                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    decoration: BoxDecoration(
+                      border: Border(
+                          bottom:
+                              BorderSide(width: 1, color: Color(0xFFD9D9D9))),
+                    ),
+                    width: double.infinity,
+                    height: 50,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          flex: 7,
+                          child: Text(item['inquiryTitle']),
                         ),
-                      )
-                    ],
+                        Expanded(
+                            flex: 2,
+                            child: Text(DateFormat('MM월 dd일')
+                                .format(DateTime.parse(item['createdAt'])))),
+                      ],
+                    ),
                   ),
                 ),
               );
             },
           ),
-        )
+        ),
       ],
     ),
   );

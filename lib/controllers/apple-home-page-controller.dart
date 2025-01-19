@@ -34,6 +34,11 @@ class AhomePageController extends GetxController {
   RxBool secretValue = false.obs;
   RxList appleProductsList = [].obs;
   RxList noticeList = [].obs;
+  RxList productInquiryList = [].obs;
+  RxList deliveryInquiryList = [].obs;
+  RxList exchangeInquiryList = [].obs;
+  RxList etcInquiryList = [].obs;
+
   RxList eventList = [
     {'title': '[이벤트] 당첨자 명단 확인', 'date': '24.09.03'},
     {'title': '[이벤트] 당첨자 명단 확인', 'date': '24.09.03'},
@@ -332,6 +337,40 @@ class AhomePageController extends GetxController {
     var res = await dio.get('/notice/get');
     noticeList.addAll(res.data['data']['rows']);
     inspect(res.data);
+  }
+
+  // 상품문의 가져오기기
+  inquiryGet() async {
+    try {
+      productInquiryList.clear();
+      deliveryInquiryList.clear();
+      exchangeInquiryList.clear();
+      etcInquiryList.clear();
+      var res = await dio.get(
+        '/inquiries/get',
+        queryParameters: {
+          'from': 0,
+          'size': 30,
+          //    'inquiryCategory': '상품 문의',
+        },
+      );
+      for (var inquiry in res.data['data']['rows']) {
+        if (inquiry['inquiryCategory'].contains('상품')) {
+          productInquiryList.add(inquiry);
+        } else if (inquiry['inquiryCategory'].contains('배송')) {
+          deliveryInquiryList.add(inquiry);
+        } else if (inquiry['inquiryCategory'].contains('교환')) {
+          exchangeInquiryList.add(inquiry);
+        } else if (inquiry['inquiryCategory'].contains('기타')) {
+          etcInquiryList.add(inquiry);
+        }
+      }
+      inspect(productInquiryList);
+      inspect(deliveryInquiryList);
+    } catch (e, s) {
+      printRed('상품 가져오기 에러 메세지 : $e');
+      printRed('상품 가져오기 에러 코드 라인 : $s');
+    }
   }
 
   // 사용자 정보 가져오기
