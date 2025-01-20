@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:apple_highland/global/g_dialog.dart';
 import 'package:apple_highland/global/g_print.dart';
 import 'package:apple_highland/main.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -157,7 +158,16 @@ class AppleLoginPageController extends GetxController {
         getStorage.remove('token');
         getStorage.write('email', email.text);
         getStorage.write('token', res.data['accessToken']);
-        Get.toNamed('/home');
+        var resRole = await dio.get('/users/get',
+            options: Options(headers: {
+              'Authorization': 'Bearer ${getStorage.read('token')}'
+            }));
+        getStorage.write('role', resRole.data['data']['role']);
+        if (getStorage.read('role') == 'admin') {
+          Get.toNamed('/admin');
+        } else {
+          Get.toNamed('/home');
+        }
       } else {
         showDialog(
           context: Get.context!,

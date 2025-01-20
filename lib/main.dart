@@ -42,7 +42,11 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       getPages: AppRoutes.routes,
-      initialRoute: getStorage.read('token') != null ? '/home' : '/login',
+      initialRoute: getStorage.read('token') != null
+          ? getStorage.read('role') == 'admin'
+              ? '/admin'
+              : '/home'
+          : '/login',
       defaultTransition: Transition.cupertino,
     );
   }

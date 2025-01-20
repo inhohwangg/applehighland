@@ -1,3 +1,5 @@
+import 'package:apple_highland/global/g_print.dart';
+import 'package:apple_highland/main.dart';
 import 'package:apple_highland/pages/apple-comunity.dart';
 import 'package:apple_highland/pages/apple-directions.dart';
 import 'package:apple_highland/pages/apple-info.dart';
@@ -86,7 +88,7 @@ class _AhomePageState extends State<AhomePage> with TickerProviderStateMixin {
                               Gap(10),
                               GestureDetector(
                                 onTap: () {
-                                  controller.categoryGet();
+                                  printCyan(getStorage.read('token'));
                                 },
                                 child: Text(
                                   '애플 하이랜드',
