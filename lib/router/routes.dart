@@ -51,7 +51,7 @@ class AppRoutes {
       transitionDuration: Duration(milliseconds: 500),
       bindings: [
         BindingsBuilder(() {
-          Get.put(AppleAdminPageController());
+          Get.put(AhomePageController());
         })
       ],
     ),

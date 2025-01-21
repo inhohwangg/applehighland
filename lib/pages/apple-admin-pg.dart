@@ -1,9 +1,12 @@
 import 'package:apple_highland/controllers/apple-admin-ctl-pg.dart';
+import 'package:apple_highland/controllers/apple-home-page-controller.dart';
+import 'package:apple_highland/utils/apple-animation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 
-class AppleAdminPage extends GetView<AppleAdminPageController> {
+class AppleAdminPage extends GetView<AhomePageController> {
   AppleAdminPage({super.key});
 
   @override
@@ -26,7 +29,7 @@ class AppleAdminPage extends GetView<AppleAdminPageController> {
                       Text(
                         '관리자 페이지',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -48,28 +51,56 @@ class AppleAdminPage extends GetView<AppleAdminPageController> {
                           childAspectRatio: 1.1),
                       itemCount: controller.adminMenuList.length,
                       itemBuilder: (context, index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 173, 202, 221),
-                            // border:
-                            //     Border.all(width: 1, color: Colors.grey[400]!),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Center(
-                                child: Text(
-                                  controller.adminMenuList[index],
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white),
-                                ),
+                        return Material(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(10),
+                          child: Ink(
+                            decoration: BoxDecoration(
+                              color: Colors.blue[300]!.withOpacity(0.6),
+                              // color: Color.fromARGB(255, 173, 202, 221),
+                              // color: Color.fromARGB(255, 173, 202, 221),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(10),
+                              onTap: () {},
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Center(
+                                    child: Text(
+                                      controller.adminMenuList[index]['name'],
+                                      style: TextStyle(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.white),
+                                    ),
+                                  ),
+                                  Gap(20),
+                                  Obx(
+                                    () => AnimatedBorderContainer(
+                                      shouldAnimate: controller
+                                              .adminMenuList[index]['count'] >
+                                          0,
+                                      child: controller.isAdmingLoading.value
+                                          ? Text(
+                                              '${controller.adminMenuList[index]['count']} 건',
+                                              style: TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w400),
+                                            )
+                                          : SizedBox(
+                                              width: 20,
+                                              height: 20,
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            ),
+                                    ),
+                                  )
+                                ],
                               ),
-                              Gap(10),
-                              Text('10 건')
-                            ],
+                            ),
                           ),
                         );
                       },

@@ -38,6 +38,16 @@ class AhomePageController extends GetxController {
   RxList deliveryInquiryList = [].obs;
   RxList exchangeInquiryList = [].obs;
   RxList etcInquiryList = [].obs;
+  RxList adminMenuList = [
+    {'name': '주문 내역 관리', 'count': 0},
+    {'name': '상품 관리', 'count': 0},
+    {'name': '문의 관리', 'count': 0},
+    {'name': '상품 후기', 'count': 0},
+    {'name': '공지사항', 'count': 0},
+    // {'name': '사이트 관리', 'count': 0},
+    // {'name': '개인정보 수정', 'count': 0},
+  ].obs;
+  RxBool isAdmingLoading = false.obs;
 
   RxList eventList = [
     {'title': '[이벤트] 당첨자 명단 확인', 'date': '24.09.03'},
@@ -276,6 +286,7 @@ class AhomePageController extends GetxController {
     totalPages.value = (totalItems.value / itemsPerPage.value).ceil();
     categoryGet();
     noticeGet();
+    inquiryGet();
   }
 
   // 페이지 변경 함수
@@ -323,9 +334,7 @@ class AhomePageController extends GetxController {
         'size': 30,
         'categoryId': res.data['data']['rows'].first['id']
       });
-      inspect(resProduct);
       appleProductsList.addAll(resProduct.data['data']['rows']);
-      // inspect(appleProductsList);
     } catch (e, s) {
       printRed('과일소개 과일 가져오기 에러 메세지 : $e');
       printRed('과일소개 과일 가져오기 에러 코드 라인 : $s');
@@ -335,8 +344,9 @@ class AhomePageController extends GetxController {
   noticeGet() async {
     noticeList.clear();
     var res = await dio.get('/notice/get');
+    adminMenuList[4]['count'] = res.data['data']['rows'].length;
+    inspect(adminMenuList);
     noticeList.addAll(res.data['data']['rows']);
-    inspect(res.data);
   }
 
   // 상품문의 가져오기기
@@ -346,6 +356,7 @@ class AhomePageController extends GetxController {
       deliveryInquiryList.clear();
       exchangeInquiryList.clear();
       etcInquiryList.clear();
+      isAdmingLoading.value = false;
       var res = await dio.get(
         '/inquiries/get',
         queryParameters: {
@@ -354,6 +365,9 @@ class AhomePageController extends GetxController {
           //    'inquiryCategory': '상품 문의',
         },
       );
+      printCyan(res.data['data']['rows'].length);
+      isAdmingLoading.value = true;
+      adminMenuList[2]['count'] = res.data['data']['rows'].length;
       for (var inquiry in res.data['data']['rows']) {
         if (inquiry['inquiryCategory'].contains('상품')) {
           productInquiryList.add(inquiry);
@@ -365,8 +379,6 @@ class AhomePageController extends GetxController {
           etcInquiryList.add(inquiry);
         }
       }
-      inspect(productInquiryList);
-      inspect(deliveryInquiryList);
     } catch (e, s) {
       printRed('상품 가져오기 에러 메세지 : $e');
       printRed('상품 가져오기 에러 코드 라인 : $s');
