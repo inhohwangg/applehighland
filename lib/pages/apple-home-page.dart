@@ -9,6 +9,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:apple_highland/controllers/apple-home-page-controller.dart';
 import 'apple-instruction.dart';
+import 'apple-introduce.dart';
 import 'apple-mypage.dart';
 
 class AhomePage extends StatefulWidget {
@@ -167,11 +168,12 @@ class _AhomePageState extends State<AhomePage> with TickerProviderStateMixin {
                             controller.tabIndex.value == 4)
                           appleInfo()
                         else if (controller.tabIndex.value == 1)
-                          applePrice()
+                          // applePrice()
+                          appleIntroduce()
                         else if (controller.tabIndex.value == 2)
                           appleInstruction()
                         else if (controller.tabIndex.value == 3)
-                          appleDirections()
+                          applePrice()
                         else if (controller.tabIndex.value == 6)
                           comunity()
                         else if (controller.tabIndex.value == 7)

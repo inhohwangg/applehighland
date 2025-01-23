@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:kpostal/kpostal.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../global/g_dio.dart';
 
@@ -235,6 +236,49 @@ class AppleLoginPageController extends GetxController {
     } catch (e, s) {
       printRed('로그인 실패 에러 메세지 :$e');
       printRed('로그인 실패 에러 코드 라인 :$s');
+    }
+  }
+
+  //* 로그인 유지 (내부 저장소에 계정 저장)
+  //* 예외처리 필요
+  //* 1. 사용자가 버튼을 누르는 시점을 고려해야함
+  //* 1-1. 만약 사용자가 아무것도 입력하지 않은 상태에서 버튼을 눌렀을 경우 예외처리 필요
+  //* 2. 입력하는 중간에 버튼을 클릭한 경우 예외처리 필요
+  void keepLogin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool('keepCheck') == true) {
+      prefs.remove('email');
+      prefs.remove('password');
+      prefs.remove('keepCheck');
+    } else {
+      prefs.setString('email', email.text);
+      prefs.setString('password', password.text);
+      prefs.setBool('keepCheck', true);
+    }
+  }
+
+  autoLogin() async {
+    var res = await dio.post(
+      '/auth/login',
+      data: {
+        'email': email.text,
+        'password': password.text,
+      },
+    );
+    if (res.statusCode! >= 200 && res.statusCode! <= 399) {
+      getStorage.remove('token');
+      getStorage.write('email', email.text);
+      getStorage.write('token', res.data['accessToken']);
+      var resRole = await dio.get('/users/get',
+          options: Options(headers: {
+            'Authorization': 'Bearer ${getStorage.read('token')}'
+          }));
+      getStorage.write('role', resRole.data['data']['role']);
+      if (getStorage.read('role') == 'admin') {
+        Get.toNamed('/admin');
+      } else {
+        Get.toNamed('/home');
+      }
     }
   }
 }

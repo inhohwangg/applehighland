@@ -38,6 +38,8 @@ class AhomePageController extends GetxController {
   RxList deliveryInquiryList = [].obs;
   RxList exchangeInquiryList = [].obs;
   RxList etcInquiryList = [].obs;
+  RxBool isAdmingLoading = false.obs;
+
   RxList adminMenuList = [
     {'name': '주문 내역 관리', 'count': 0},
     {'name': '상품 관리', 'count': 0},
@@ -47,7 +49,43 @@ class AhomePageController extends GetxController {
     // {'name': '사이트 관리', 'count': 0},
     // {'name': '개인정보 수정', 'count': 0},
   ].obs;
-  RxBool isAdmingLoading = false.obs;
+
+  RxList productIntroduceList = [
+    {
+      'name': '감홍',
+      'image_path': 'assets/images/product_info1.png',
+      'storage_period': '약 2주 - 3주',
+      'storage_method': '냉장고에 과일 칸에 신문지로 싸서 보관.\n통풍 유지',
+      'product_out_time': '9월 중순 - 9월 말',
+      'flavor': '당도가 높고 산미가 적당해\n조화로운 맛.\n과육이 단단하고 향이 강함.'
+    },
+    {
+      'name': '시나골드',
+      'image_path': 'assets/images/product_info2.png',
+      'storage_period': '약 1개월',
+      'storage_method': '냉장고에 밀폐 용기 또는 랩으로 싸서 보관.\n습기를 유지하며 온도 변화 최소화',
+      'product_out_time': '10월 중순 - 10월 말',
+      'flavor': '달콤한 맛이 강하며 약간의 산미가 있어 균형감이 우수.\n과목이 단단하고 저장성이 좋음'
+    },
+    {
+      'name': '부사',
+      'image_path': 'assets/images/product_info3.png',
+      'storage_period': '약 2주',
+      'storage_method': '냉장고에 과일 칸에 보관.\n사과 표면 물기를 닦고 종이로 감싸 개별 보관',
+      'product_out_time': '10월 초 - 10월 중순',
+      'flavor': '매우 달콤하고 향이 진한 품종.\n과육이 부드럽고 과즙이 풍부함.'
+    },
+    {
+      'name': '홍로',
+      'image_path': 'assets/images/product_info3.png',
+      'storage_period': '약 1개월 - 2개월',
+      'storage_method': '냉장고 과일 칸에 신문지로 싸서 개별 보관.\n온도와 습도 일정하게 유지',
+      'product_out_time': '11월 초 - 11월 말',
+      'flavor': '달콤하면서도 약간의 신맛이 있어 깊은 풍미.\n과육이 단단하고 저장성이 가장 뛰어남'
+    },
+  ].obs;
+
+  RxInt productIntroduceIndex = 0.obs;
 
   RxList eventList = [
     {'title': '[이벤트] 당첨자 명단 확인', 'date': '24.09.03'},

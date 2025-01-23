@@ -89,6 +89,9 @@ class AloginPage extends GetView<AppleLoginPageController> {
                   child: Obx(
                     () => TextField(
                       controller: controller.password,
+                      onSubmitted: (value) {
+                        controller.login();
+                      },
                       obscureText: controller.isVisibility.value,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -96,8 +99,7 @@ class AloginPage extends GetView<AppleLoginPageController> {
                         ),
                         prefixIcon: Icon(Icons.lock_outline),
                         hintText: '비밀번호',
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 15),
+                        contentPadding: EdgeInsets.symmetric(vertical: 15),
                         suffixIcon: GestureDetector(
                           onTap: () {
                             !controller.isVisibility.value
@@ -105,7 +107,9 @@ class AloginPage extends GetView<AppleLoginPageController> {
                                 : controller.isVisibility.value = false;
                           },
                           child: Icon(
-                            controller.isVisibility.value ? Icons.visibility : Icons.visibility_off_outlined,
+                            controller.isVisibility.value
+                                ? Icons.visibility
+                                : Icons.visibility_off_outlined,
                           ),
                         ),
                         // prefixText: '아이디'
