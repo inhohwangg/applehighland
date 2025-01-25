@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:apple_highland/controllers/apple-home-page-controller.dart';
+import 'apple-cart.dart';
 import 'apple-instruction.dart';
 import 'apple-introduce.dart';
 import 'apple-mypage.dart';
@@ -75,15 +76,12 @@ class _AhomePageState extends State<AhomePage> with TickerProviderStateMixin {
                     opacity: 0.7,
                   ),
                 ),
-                // padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 child: Obx(() => Column(
                       children: [
                         Padding(
                           padding:
                               EdgeInsets.only(left: 10, right: 10, top: 10),
-                          // padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
                           child: Row(
-                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Image.asset('assets/logo/apple_logo.png'),
                               Gap(10),
@@ -100,10 +98,19 @@ class _AhomePageState extends State<AhomePage> with TickerProviderStateMixin {
                               ),
                               Spacer(),
                               Row(
-                                children: const [
+                                children: [
                                   Icon(Icons.search, size: 25),
                                   SizedBox(width: 20),
-                                  Icon(Icons.local_mall_outlined, size: 25),
+                                  IconButton(
+                                    onPressed: () {
+                                      controller.tabIndex.value = 9;
+                                      controller.bottomIndex.value = 0;
+                                    },
+                                    icon: Icon(
+                                      Icons.local_mall_outlined,
+                                      size: 25,
+                                    ),
+                                  ),
                                   SizedBox(width: 10),
                                 ],
                               ),
@@ -180,6 +187,8 @@ class _AhomePageState extends State<AhomePage> with TickerProviderStateMixin {
                           mypage()
                         else if (controller.tabIndex.value == 8)
                           privateData()
+                        else if (controller.tabIndex.value == 9)
+                          appleCart()
                       ],
                     )),
               ),
