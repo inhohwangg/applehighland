@@ -142,7 +142,7 @@ applePrice() {
                     child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if (controller.tabIndex.value == 1)
+                    if (controller.tabIndex.value == 3)
                       GestureDetector(
                         onTap: () {
                           showDialog(
