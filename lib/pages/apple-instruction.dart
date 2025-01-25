@@ -31,16 +31,29 @@ appleInstruction() {
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
+          padding: EdgeInsets.symmetric(horizontal: 20),
           child: SizedBox(
             width: double.infinity,
             height: 250,
             child: NaverMap(
               options: NaverMapViewOptions(
-                  initialCameraPosition: NCameraPosition(
-                      target: NLatLng(38.264076, 128.150175), zoom: 15)),
-              onMapReady: (controller) {
-                printRed('네이버 맵 로딩');
+                initialCameraPosition: NCameraPosition(
+                    target: NLatLng(38.264076, 128.150175), zoom: 12),
+                scrollGesturesEnable: true, // 스크롤 제스처
+                zoomGesturesEnable: true, // 줌 제스처
+                rotationGesturesEnable: true, // 회전 제스처
+                tiltGesturesEnable: true, // 기울기 제스처
+                stopGesturesEnable: true, // 제스처 중지
+                maxZoom: 20, // 최대 줌 레벨
+                minZoom: 5,
+              ),
+              onMapReady: (NaverMapController controller) {
+                controller.addOverlay(
+                  NMarker(
+                    id: 'marker1',
+                    position: NLatLng(38.264076, 128.150175),
+                  ),
+                );
               },
             ),
           ),
