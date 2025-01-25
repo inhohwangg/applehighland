@@ -44,6 +44,7 @@ appleInstruction() {
                 rotationGesturesEnable: true, // 회전 제스처
                 tiltGesturesEnable: true, // 기울기 제스처
                 stopGesturesEnable: true, // 제스처 중지
+                logoClickEnable: false,
                 maxZoom: 20, // 최대 줌 레벨
                 minZoom: 5,
               ),
