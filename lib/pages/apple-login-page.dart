@@ -1,10 +1,8 @@
 import 'package:apple_highland/controllers/apple-login-page-controller.dart';
-import 'package:apple_highland/controllers/apple-user-controller.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'apple-home-page.dart';
 import 'apple-register-page.dart';
 
 class AloginPage extends GetView<AppleLoginPageController> {

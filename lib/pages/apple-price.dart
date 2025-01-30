@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:apple_highland/global/g_print.dart';
+import 'package:apple_highland/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gap/gap.dart';
@@ -181,19 +185,26 @@ applePrice() {
                                             child: IconButton(
                                               icon: Icon(Icons.close,
                                                   color: Colors.white),
-                                              onPressed: () =>
-                                                  Navigator.pop(context),
+                                              onPressed: () {
+                                                controller.orderCount.value = 1;
+                                                Get.back();
+                                              },
                                             ),
                                           ),
                                         ],
                                       ),
                                       // 컨텐츠 영역...
                                       Gap(10),
-                                      Text(
-                                        item['productName'],
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold),
+                                      GestureDetector(
+                                        onTap: () {
+                                          inspect(item);
+                                        },
+                                        child: Text(
+                                          item['productName'],
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
                                       Gap(10),
                                       Divider(
@@ -233,10 +244,95 @@ applePrice() {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 20),
                                         child: Row(
-                                          children: const [
-                                            Text('수량량'),
+                                          children: [
+                                            Text('수량'),
                                             Gap(40),
-                                            Text('무료'),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  color: Colors.grey[300]!,
+                                                  width: 1,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(4),
+                                              ),
+                                              height: 32,
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  // 마이너스 버튼
+                                                  InkWell(
+                                                    onTap: () {
+                                                      print('this -');
+                                                      controller
+                                                          .orderCount.value--;
+                                                      // 수량 감소 로직
+                                                    },
+                                                    child: Container(
+                                                      width: 30,
+                                                      height: 30,
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Icon(
+                                                        Icons.remove,
+                                                        size: 16,
+                                                        color: Colors.black54,
+                                                      ),
+                                                    ),
+                                                  ),
+
+                                                  // 수량 표시
+                                                  Container(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 20),
+                                                    width: 50,
+                                                    height: 30,
+                                                    alignment: Alignment.center,
+                                                    decoration: BoxDecoration(
+                                                      border: Border(
+                                                        left: BorderSide(
+                                                            color: Colors
+                                                                .grey[300]!),
+                                                        right: BorderSide(
+                                                            color: Colors
+                                                                .grey[300]!),
+                                                      ),
+                                                    ),
+                                                    child: Obx(
+                                                      () => Text(
+                                                        controller
+                                                            .orderCount.value
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  // 플러스 버튼
+                                                  InkWell(
+                                                    onTap: () {
+                                                      print('this +');
+                                                      // 수량 증가 로직
+                                                      controller
+                                                          .orderCount.value++;
+                                                    },
+                                                    child: Container(
+                                                      width: 30,
+                                                      height: 30,
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Icon(
+                                                        Icons.add,
+                                                        size: 16,
+                                                        color: Colors.black54,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -246,19 +342,32 @@ applePrice() {
                                             horizontal: 20, vertical: 20),
                                         child: Row(
                                           children: [
-                                            Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 10, vertical: 10),
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      width: 1,
+                                            GestureDetector(
+                                              onTap: () {
+                                                inspect(item);
+                                                controller.cartCreate(
+                                                    item['id'].toString(),
+                                                    getStorage
+                                                        .read('userId')
+                                                        .toString());
+                                              },
+                                              child: Container(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 10,
+                                                    vertical: 10),
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        width: 1,
+                                                        color:
+                                                            Color(0xFF856655)),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5)),
+                                                child: Text(
+                                                  '장바구니',
+                                                  style: TextStyle(
                                                       color: Color(0xFF856655)),
-                                                  borderRadius:
-                                                      BorderRadius.circular(5)),
-                                              child: Text(
-                                                '장바구니',
-                                                style: TextStyle(
-                                                    color: Color(0xFF856655)),
+                                                ),
                                               ),
                                             ),
                                             Gap(20),

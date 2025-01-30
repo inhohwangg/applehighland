@@ -157,12 +157,21 @@ class AppleLoginPageController extends GetxController {
       inspect(res.data);
       if (res.statusCode! >= 200 && res.statusCode! <= 399) {
         getStorage.remove('token');
+        getStorage.remove('refreshToken');
         getStorage.write('email', email.text);
         getStorage.write('token', res.data['accessToken']);
+        getStorage.write('refresh_token', res.data['refreshToken']);
         var resRole = await dio.get('/users/get',
             options: Options(headers: {
               'Authorization': 'Bearer ${getStorage.read('token')}'
             }));
+
+        var resUser = await dio.get('/users/get',
+            options: Options(headers: {
+              'Authorization': 'Bearer ${getStorage.read('token')}'
+            }));
+        getStorage.write('userId', resUser.data['data']['id']);
+        getStorage.write('phone', resUser.data['data']['phoneNumber']);
         getStorage.write('role', resRole.data['data']['role']);
         if (getStorage.read('role') == 'admin') {
           Get.toNamed('/admin');

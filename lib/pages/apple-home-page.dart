@@ -1,7 +1,4 @@
-import 'package:apple_highland/global/g_print.dart';
-import 'package:apple_highland/main.dart';
 import 'package:apple_highland/pages/apple-comunity.dart';
-import 'package:apple_highland/pages/apple-directions.dart';
 import 'package:apple_highland/pages/apple-info.dart';
 import 'package:apple_highland/pages/apple-price.dart';
 import 'package:flutter/material.dart';
@@ -85,24 +82,19 @@ class _AhomePageState extends State<AhomePage> with TickerProviderStateMixin {
                             children: [
                               Image.asset('assets/logo/apple_logo.png'),
                               Gap(10),
-                              GestureDetector(
-                                onTap: () {
-                                  printCyan(getStorage.read('token'));
-                                },
-                                child: Text(
-                                  '애플 하이랜드',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600),
-                                ),
+                              Text(
+                                '애플 하이랜드',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w600),
                               ),
                               Spacer(),
                               Row(
                                 children: [
-                                  Icon(Icons.search, size: 25),
-                                  SizedBox(width: 20),
+                                  // Icon(Icons.search, size: 25),
+                                  // SizedBox(width: 20),
                                   IconButton(
-                                    onPressed: () {
+                                    onPressed: () async {
+                                      await controller.categoryGet();
                                       controller.tabIndex.value = 9;
                                       controller.bottomIndex.value = 0;
                                     },

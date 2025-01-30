@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:apple_highland/global/g_dio.dart';
 import 'package:apple_highland/global/g_print.dart';
 import 'package:apple_highland/main.dart';
-import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
 class AppleUserController extends GetxController {

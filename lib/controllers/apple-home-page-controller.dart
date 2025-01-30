@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:apple_highland/global/g_dio.dart';
 import 'package:apple_highland/global/g_print.dart';
 import 'package:apple_highland/main.dart';
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
 class AhomePageController extends GetxController {
@@ -39,6 +40,9 @@ class AhomePageController extends GetxController {
   RxList exchangeInquiryList = [].obs;
   RxList etcInquiryList = [].obs;
   RxBool isAdmingLoading = false.obs;
+  RxBool checkBoxValue = false.obs;
+  RxList cartList = [].obs;
+  RxInt orderCount = 1.obs;
 
   RxList adminMenuList = [
     {'name': '주문 내역 관리', 'count': 0},
@@ -317,14 +321,14 @@ class AhomePageController extends GetxController {
   RxBool isExpanded = false.obs;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     tabIndex.value = 0;
     totalItems.value = eventList.length;
     totalPages.value = (totalItems.value / itemsPerPage.value).ceil();
-    categoryGet();
-    noticeGet();
-    inquiryGet();
+    await categoryGet();
+    await noticeGet();
+    await inquiryGet();
   }
 
   // 페이지 변경 함수
@@ -363,16 +367,53 @@ class AhomePageController extends GetxController {
   categoryGet() async {
     try {
       appleProductsList.clear();
-      var res = await dio.get('/categories/get', queryParameters: {
+      cartList.clear(); // cartList도 초기화
+
+      var resCategory = await dio.get('/categories/get', queryParameters: {
         'from': 0,
         'size': 30,
       });
+
       var resProduct = await dio.get('/products/get', data: {
         'from': 0,
         'size': 30,
-        'categoryId': res.data['data']['rows'].first['id']
+        'categoryId': resCategory.data['data']['rows'].first['id']
       });
+
+      var resCart = await dio.get(
+        '/carts/get',
+        queryParameters: {
+          'userId': getStorage.read('userId'),
+        },
+      );
+      inspect(resCart);
+
       appleProductsList.addAll(resProduct.data['data']['rows']);
+      cartList.clear();
+      // 제품 목록 순회
+      for (var product in resProduct.data['data']['rows']) {
+        // 장바구니 항목 순회
+        for (var cart in resCart.data['data']['rows']) {
+          // product의 id와 cart의 productId 비교
+          if (product['id'] == cart['productId']) {
+            cartList.add({
+              'id': cart['id'],
+              'cartQuantity': cart['cartQuantity'],
+              'createdAt': cart['createdAt'],
+              'updatedAt': cart['updatedAt'],
+              'productId': cart['productId'],
+              'userId': cart['userId'],
+              'productState': product['productState'],
+              'productName': product['productName'],
+              'productPrice': product['productPrice'],
+              'productQuality': product['quality'],
+              'productFiles': product['productFiles']
+            });
+          }
+        }
+      }
+      inspect(cartList);
+      printCyan('장바구니 가져오기');
     } catch (e, s) {
       printRed('과일소개 과일 가져오기 에러 메세지 : $e');
       printRed('과일소개 과일 가져오기 에러 코드 라인 : $s');
@@ -423,13 +464,26 @@ class AhomePageController extends GetxController {
     }
   }
 
-  // 사용자 정보 가져오기
-  // 카테고리 삭제(임시)
-
   logOut() {
     tabIndex.value = 0;
     bottomIndex.value = 0;
     getStorage.remove('token');
     Get.offNamed('/login');
+  }
+
+  cartCreate(productId, userId) async {
+    try {
+      printYellow(productId);
+      printYellow(userId);
+      var res = await dio.post('/carts/create', queryParameters: {
+        'cartQuantity': orderCount.value,
+        'productId': productId,
+        'userId': userId,
+      });
+      inspect(res.data);
+    } catch (e, s) {
+      printRed('장바구니 생성 에러 메세지 : $e');
+      printRed('장바구니 생성 에러 코드 라인 : $s');
+    }
   }
 }

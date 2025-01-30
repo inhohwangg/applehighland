@@ -24,7 +24,6 @@ class AppleCategoryController extends GetxController {
   categoryGet() async {
     try {
       var res = await dio.get('/categories/get');
-      inspect(res.data);
     } catch (e, s) {
       printRed('카테고리 전체 조회 에러 메세지 : $e');
       printRed('카테고리 전체 조회 에러 코드 라인 : $s');
@@ -39,7 +38,6 @@ class AppleCategoryController extends GetxController {
         'categoryName': '사과 테스트1',
         'categoryUrl': '/product/apple-test'
       });
-      inspect(res.data);
     } catch (e, s) {
       printRed('카테고리 전체 조회 에러 메세지 : $e');
       printRed('카테고리 전체 조회 에러 코드 라인 : $s');
@@ -52,7 +50,6 @@ class AppleCategoryController extends GetxController {
       var res = await dio.delete('/categories/delete', data: {
         ['3c909366-6f6d-4958-8ab5-61b853367cbd'],
       });
-      inspect(res.data);
     } catch (e, s) {
       printRed('카테고리 전체 조회 에러 메세지 : $e');
       printRed('카테고리 전체 조회 에러 코드 라인 : $s');
