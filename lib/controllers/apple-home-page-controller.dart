@@ -329,6 +329,7 @@ class AhomePageController extends GetxController {
     await categoryGet();
     await noticeGet();
     await inquiryGet();
+    await tokenRefresh();
   }
 
   // 페이지 변경 함수
@@ -484,6 +485,22 @@ class AhomePageController extends GetxController {
     } catch (e, s) {
       printRed('장바구니 생성 에러 메세지 : $e');
       printRed('장바구니 생성 에러 코드 라인 : $s');
+    }
+  }
+
+  tokenRefresh() async {
+    try {
+      var res = await dio.get('/auth/tokenRefresh',
+          options:
+              Options(headers: {'token': getStorage.read('refreshToken')}));
+      inspect(res);
+      if (res.statusCode! > 199 && res.statusCode! <= 399) {
+        getStorage.remove('token');
+        getStorage.write('token', res.data['accessToken']);
+      }
+    } catch (e, s) {
+      printRed('토큰 갱신 에러 메세지 : $e');
+      printRed('토큰 갱신 에러 코드 라인 : $s');
     }
   }
 }

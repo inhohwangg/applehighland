@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:apple_highland/controllers/apple-home-page-controller.dart';
-import 'package:apple_highland/global/g_print.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
