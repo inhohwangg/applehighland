@@ -1,3 +1,4 @@
+import 'package:apple_highland/global/g_print.dart';
 import 'package:apple_highland/pages/apple-comunity.dart';
 import 'package:apple_highland/pages/apple-info.dart';
 import 'package:apple_highland/pages/apple-price.dart';
@@ -41,7 +42,7 @@ class _AhomePageState extends State<AhomePage> with TickerProviderStateMixin {
   void onItemTapped(int index) {
     print("Tapped on index: $index");
     setState(() {
-      for (int i = 0; i < 4; i++) {
+      for (int i = 0; i < 3; i++) {
         if (i == index) {
           print("Animating icon at index $i");
           _animationControllers[i]
@@ -51,9 +52,13 @@ class _AhomePageState extends State<AhomePage> with TickerProviderStateMixin {
           _animationControllers[i].reset();
         }
       }
+      if (index == 0) {
+        controller.tabIndex.value = index;
+      } else {
+        controller.tabIndex.value = index + 3;
+      }
       controller.bottomIndex.value = index;
-      controller.tabIndex.value = index + 4;
-      print(controller.tabIndex.value);
+      printPurple(controller.tabIndex.value);
     });
   }
 
@@ -152,6 +157,7 @@ class _AhomePageState extends State<AhomePage> with TickerProviderStateMixin {
                                 onTap: () {
                                   controller.tabIndex.value = 3;
                                   controller.bottomIndex.value = 0;
+                                  printCyan(controller.tabIndex.value);
                                 },
                                 child: Text(
                                   '과일 판매',
@@ -163,8 +169,7 @@ class _AhomePageState extends State<AhomePage> with TickerProviderStateMixin {
                           ),
                         ),
                         // 나머지 Body 내용 추가
-                        if (controller.tabIndex.value == 0 ||
-                            controller.tabIndex.value == 4)
+                        if (controller.tabIndex.value == 0)
                           appleInfo()
                         else if (controller.tabIndex.value == 1)
                           // applePrice()
@@ -173,9 +178,9 @@ class _AhomePageState extends State<AhomePage> with TickerProviderStateMixin {
                           appleInstruction()
                         else if (controller.tabIndex.value == 3)
                           applePrice()
-                        else if (controller.tabIndex.value == 6)
+                        else if (controller.tabIndex.value == 4)
                           comunity()
-                        else if (controller.tabIndex.value == 7)
+                        else if (controller.tabIndex.value == 5)
                           mypage()
                         else if (controller.tabIndex.value == 8)
                           privateData()
@@ -407,6 +412,7 @@ class _AhomePageState extends State<AhomePage> with TickerProviderStateMixin {
               backgroundColor: Color(0xFFFCFCFC),
               indicatorColor: Colors.transparent, // 선택된 항목의 배경색을 투명하게
               onDestinationSelected: (value) {
+                printYellow('this :$value');
                 onItemTapped(value);
                 controller.bottomIndex.value = value;
               },
@@ -428,29 +434,29 @@ class _AhomePageState extends State<AhomePage> with TickerProviderStateMixin {
                     ),
                   ),
                 ),
+                // NavigationDestination(
+                //   icon: ScaleTransition(
+                //     scale: _animations[1],
+                //     child: Icon(controller.bottomIndex.value == 1
+                //         ? Icons.menu_open
+                //         : Icons.menu_open_outlined),
+                //   ),
+                //   label: "메뉴",
+                //   selectedIcon: Container(
+                //     decoration: BoxDecoration(
+                //         color: Colors.transparent,
+                //         borderRadius: BorderRadius.circular(10)),
+                //     child: Icon(
+                //       controller.bottomIndex.value == 1
+                //           ? Icons.menu_open
+                //           : Icons.menu_open_outlined,
+                //     ),
+                //   ),
+                // ),
                 NavigationDestination(
                   icon: ScaleTransition(
                     scale: _animations[1],
                     child: Icon(controller.bottomIndex.value == 1
-                        ? Icons.menu_open
-                        : Icons.menu_open_outlined),
-                  ),
-                  label: "메뉴",
-                  selectedIcon: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Icon(
-                      controller.bottomIndex.value == 1
-                          ? Icons.menu_open
-                          : Icons.menu_open_outlined,
-                    ),
-                  ),
-                ),
-                NavigationDestination(
-                  icon: ScaleTransition(
-                    scale: _animations[2],
-                    child: Icon(controller.bottomIndex.value == 2
                         ? Icons.feed
                         : Icons.feed_outlined),
                   ),
@@ -460,7 +466,7 @@ class _AhomePageState extends State<AhomePage> with TickerProviderStateMixin {
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(10)),
                     child: Icon(
-                      controller.bottomIndex.value == 2
+                      controller.bottomIndex.value == 1
                           ? Icons.feed
                           : Icons.feed_outlined,
                     ),
@@ -468,8 +474,8 @@ class _AhomePageState extends State<AhomePage> with TickerProviderStateMixin {
                 ),
                 NavigationDestination(
                   icon: ScaleTransition(
-                    scale: _animations[3],
-                    child: Icon(controller.bottomIndex.value == 3
+                    scale: _animations[2],
+                    child: Icon(controller.bottomIndex.value == 2
                         ? Icons.account_circle
                         : Icons.account_circle_outlined),
                   ),
@@ -479,7 +485,7 @@ class _AhomePageState extends State<AhomePage> with TickerProviderStateMixin {
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(10)),
                     child: Icon(
-                      controller.bottomIndex.value == 3
+                      controller.bottomIndex.value == 2
                           ? Icons.account_circle
                           : Icons.account_circle_outlined,
                     ),

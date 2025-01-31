@@ -1,7 +1,11 @@
+import 'dart:developer';
+
+import 'package:apple_highland/global/g_time.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:apple_highland/controllers/apple-home-page-controller.dart';
+import 'package:intl/intl.dart';
 
 AhomePageController controller = Get.put(AhomePageController());
 
@@ -37,12 +41,17 @@ question(title, item) {
                             size: 24,
                           )),
                       // Gap(10),
-                      Text(
-                        title,
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFF4D2E1C)),
+                      GestureDetector(
+                        onTap: () {
+                          inspect(controller.deliveryInquiryList);
+                        },
+                        child: Text(
+                          title,
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF4D2E1C)),
+                        ),
                       ),
                     ],
                   ),
@@ -159,7 +168,7 @@ question(title, item) {
                               EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                           child: GestureDetector(
                             onTap: () {
-                              item['secret']
+                              !item['isPublic']
                                   ? showDialog(
                                       context: Get.context!,
                                       builder: (context) {
@@ -237,7 +246,90 @@ question(title, item) {
                                         );
                                       },
                                     )
-                                  : null;
+                                  : showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          shape: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5)),
+                                          content: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 15),
+                                                child: Center(
+                                                  child: Text(
+                                                    '배송문의',
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color:
+                                                            Color(0xFF4D2E1C)),
+                                                  ),
+                                                ),
+                                              ),
+                                              Gap(20),
+                                              Text(
+                                                item['inquiryTitle'],
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
+                                              Gap(20),
+                                              Text('문의 내용',
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w600)),
+                                              Gap(10),
+                                              Text(
+                                                item['inquiryDesc'],
+                                                style: TextStyle(
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Color(0xFF343434)
+                                                        .withOpacity(0.75)),
+                                              ),
+                                              Gap(10),
+                                              Text(koreanTime(
+                                                  item['createdAt'])),
+                                              Gap(10),
+                                              Divider(
+                                                color: Colors.grey[200],
+                                              ),
+                                              Text(
+                                                '답변',
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              Gap(10),
+                                              Text(
+                                                  (item?['inquiryAnswer']
+                                                          ?.toString() ??
+                                                      '답변 대기중입니다.'), // toString() 추가 및 null 체크
+                                                  style: TextStyle(
+                                                      fontSize: 13,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: Color(0xFF343434)
+                                                          .withOpacity(0.75))),
+                                              Gap(10),
+                                              Text(koreanTime(item['answerAt']))
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(horizontal: 10),
@@ -256,7 +348,7 @@ question(title, item) {
                                     child: Row(
                                       children: [
                                         Text(
-                                          item['title'],
+                                          item['inquiryTitle'],
                                           style: TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.w400,
@@ -269,30 +361,30 @@ question(title, item) {
                                                 size: 15)
                                             : SizedBox(),
                                         Gap(5),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            color: item['status'] == '답변완료'
-                                                ? Color(0xFF92D090)
-                                                : Color(0xFFD5D5D5),
-                                          ),
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 5, vertical: 2.5),
-                                          child: Text(
-                                            item['status'],
-                                            style: TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.white),
-                                          ),
-                                        )
+                                        // Container(
+                                        //   decoration: BoxDecoration(
+                                        //     borderRadius:
+                                        //         BorderRadius.circular(10),
+                                        //     color: item['status'] == '답변완료'
+                                        //         ? Color(0xFF92D090)
+                                        //         : Color(0xFFD5D5D5),
+                                        //   ),
+                                        //   padding: EdgeInsets.symmetric(
+                                        //       horizontal: 5, vertical: 2.5),
+                                        //   child: Text(
+                                        //     item['status'],
+                                        //     style: TextStyle(
+                                        //         fontSize: 10,
+                                        //         fontWeight: FontWeight.w400,
+                                        //         color: Colors.white),
+                                        //   ),
+                                        // )
                                       ],
                                     ),
                                   ),
                                   Expanded(
                                     flex: 2,
-                                    child: Text(item['date']),
+                                    child: Text(koreanTime(item['createdAt'])),
                                   ),
                                 ],
                               ),
